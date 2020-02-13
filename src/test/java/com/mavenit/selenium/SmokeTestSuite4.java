@@ -1,5 +1,7 @@
 package com.mavenit.selenium;
 
+
+
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -12,6 +14,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
@@ -28,7 +31,7 @@ public class SmokeTestSuite4 extends Hooks {
 
         List<WebElement> productWebElements = driver.findElements(By.cssSelector("a[data-test='component-product-card-title']"));
         Random random = new Random();
-        int randomNumber = random.nextInt(productWebElements.size()- 1);
+        int randomNumber = random.nextInt(productWebElements.size() - 1);
 
         //Identifying the product
         WebElement selectedElement = productWebElements.get(randomNumber);
@@ -48,11 +51,11 @@ public class SmokeTestSuite4 extends Hooks {
 
 
         //selecting dropdown for quantity
-        WebElement element= driver.findElement(By.cssSelector("select[class='ProductCard__quantitySelect__2y1R3']"));
+        WebElement element = driver.findElement(By.cssSelector("select[class='ProductCard__quantitySelect__2y1R3']"));
 
 
         //ProductCard__quantitySelect__2y1R3
-        Select s1 =new Select(element);
+        Select s1 = new Select(element);
         s1.selectByIndex(1);
 
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -66,5 +69,9 @@ public class SmokeTestSuite4 extends Hooks {
 
         assertThat(price2, is(greaterThan(price)));
 
+
     }
+
+
 }
+
