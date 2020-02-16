@@ -17,7 +17,7 @@ import static org.hamcrest.core.Is.is;
 
     public class SmokeTestSuite4 extends Hooks {
         @Test
-        public void searchTest() {
+        public void searchTest() throws InterruptedException {
 
             // Search
 
@@ -35,7 +35,7 @@ import static org.hamcrest.core.Is.is;
             String selectedProductName = selectedElement.getText();
             selectedElement.click();
 
-            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
             //Add to cart
             driver.findElement(By.cssSelector("button[data-test='component-att-button']")).click();
@@ -47,27 +47,28 @@ import static org.hamcrest.core.Is.is;
             String price = driver.findElement(By.cssSelector("div.Summary__subTotalLabel__2GphY")).getText();
 
             //converting String to double
-            String value =price.replaceAll("£", "");
+            String value =price.replaceAll("£", " ");
             double d = Double.parseDouble(value);
-            double ExpectedPrice = (d*2);
+            double ExpectedPrice=(d*2);
 
             //selecting dropdown for quantity
             WebElement element = driver.findElement(By.cssSelector("select[class='ProductCard__quantitySelect__2y1R3']"));
             Select s1 = new Select(element);
             s1.selectByIndex(1);
 
-            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
             //Check new total price
-            String price2 = (driver.findElement(By.cssSelector("div.Summary__subTotalLabel__2GphY")).getText());
+            Thread.sleep(8000);
+            String price2 = driver.findElement(By.cssSelector("div.Summary__subTotalLabel__2GphY")).getText();
 
             //Converting string to double
-            String actual = price2.replaceAll("£", "");
+            String actual = price2.replaceAll("£", " ");
             double actualPrice = Double.parseDouble(actual);
 
-            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-          assertThat(ExpectedPrice,(equalTo(actualPrice)));
+          assertThat(ExpectedPrice, equalTo(actualPrice));
         }
 
     }
